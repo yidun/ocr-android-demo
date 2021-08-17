@@ -86,6 +86,32 @@ CAMERA 权限是隐私权限，Android 6.0 及以上需要动态申请。使用�
 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
 ```
 
+### 混淆配置
+
+在 proguard-rules.pro 文件中添加如下混淆规则
+
+```
+-keeppackagenames com.netease.nis.ocr
+-keepattributes SourceFile,LineNumberTable
+-keep class !com.netease.nis.**,** {*;}
+-dontwarn **
+-keep class com.netease.nis.ocr.OcrScanner  {
+    public <methods>;
+    public <fields>;
+}
+-keep class com.netease.nis.ocr.OcrScanView  {
+    public <methods>;
+    public <fields>;
+}
+-keep class com.netease.nis.ocr.OcrEngine{
+    native <methods>;
+}
+-keep class com.netease.nis.ocr.CameraView  {
+    public <methods>;
+}
+-keep class com.netease.nis.ocr.OcrCropListener{*;}
+```
+
 ## 使用说明
 
 1. 在xml布局文件中使用OCR扫描预览View
