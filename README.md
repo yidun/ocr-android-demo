@@ -31,7 +31,7 @@ allprojects {
 在对应 module 的 build.gradle 中添加依赖
 
 ```
-implementation 'io.github.yidun:ocr:1.0.5'
+implementation 'io.github.yidun:ocr:1.0.6'
 ```
 ### 本地手动依赖
 
@@ -126,6 +126,8 @@ ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}
  	android:layout_height="match_parent"
  	android:layout_gravity="center_horizontal" />
 ```
+ 
+OcrScanView.setMaskColor(String colorRGB) 可以设置遮罩层的颜色
 
 2. 获取AliveDetector对象，进行初始化
 将前面布局中获取到的相机预览View以及从易盾官网申请的业务id传给init()接口进行初始化
