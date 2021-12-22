@@ -31,7 +31,7 @@ allprojects {
 在对应 module 的 build.gradle 中添加依赖
 
 ```
-implementation 'io.github.yidun:ocr:1.0.6'
+implementation 'io.github.yidun:ocr:1.0.7'
 ```
 ### 本地手动依赖
 
@@ -64,10 +64,6 @@ dependencies {
 packagingOptions {
         pickFirst  'lib/arm64-v8a/libc++_shared.so'
         pickFirst  'lib/armeabi-v7a/libc++_shared.so'
-        pickFirst  'lib/arm64-v8a/libMNN.so'
-        pickFirst  'lib/armeabi-v7a/libMNN.so'
-        pickFirst  'lib/arm64-v8a/libopencv_java3.so'
-        pickFirst  'lib/armeabi-v7a/libopencv_java3.so'
     }
 ```
 ## 各种配置
