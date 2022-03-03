@@ -31,7 +31,7 @@ allprojects {
 在对应 module 的 build.gradle 中添加依赖
 
 ```
-implementation 'io.github.yidun:ocr:1.0.7'
+implementation 'io.github.yidun:ocr:1.0.8'
 ```
 ### 本地手动依赖
 
