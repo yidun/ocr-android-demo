@@ -3,22 +3,27 @@ package com.netease.nis.ocrdemo
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.netease.nis.ocr.OcrCropListener
 import com.netease.nis.ocr.OcrScanner
+import com.netease.nis.ocrdemo.manager.BroadcastDispatcher
+import com.netease.nis.ocrdemo.manager.showToast
 import com.netease.nis.ocrdemo.utils.TipDialog
 import kotlinx.android.synthetic.main.activity_ocr_scan.*
 
 class OcrScanActivity : AppCompatActivity() {
     val TAG = "OCR_SDK"
-    var tipDialog: TipDialog? = null
+    val tipDialog: TipDialog by lazy {
+        TipDialog(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BroadcastDispatcher.registerScreenOff(this)
         setContentView(R.layout.activity_ocr_scan)
         initView()
+        initListener()
     }
 
     private fun initView() {
@@ -49,35 +54,48 @@ class OcrScanActivity : AppCompatActivity() {
             }
 
             override fun onError(code: Int, msg: String?) {
-                showToast("onError:$msg")
+                "onError:$msg".showToast(applicationContext)
                 Log.e(TAG, "ocr扫描出错，原因:$msg")
             }
 
             override fun onOverTime() {
                 runOnUiThread {
-                    tipDialog = TipDialog(context)
-                    tipDialog?.show()
+                    tipDialog.setOwnerActivity(this@OcrScanActivity)
+                    tipDialog.show()
                 }
-                showToast("检测超时")
                 Log.e(TAG, "ocr扫描检测超时")
             }
         })
         OcrScanner.getInstance().setTimeOut(1000 * 30)
-        Handler().postDelayed({
+        ocr_view?.postDelayed({
             OcrScanner.getInstance().start()
         }, 500)
         iv_back.setOnClickListener { finish() }
     }
 
-    private fun showToast(tip: String) {
-        runOnUiThread {
-            Toast.makeText(applicationContext, tip, Toast.LENGTH_LONG).show()
-        }
+    private fun initListener() {
+        iv_back.setOnClickListener { finish() }
+        BroadcastDispatcher.addScreenStatusChangedListener(listener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         OcrScanner.getInstance().stop()
         OcrScanner.getInstance().destroy()
+        BroadcastDispatcher.unRegisterScreenOff(this)
+    }
+
+    private val listener = object : BroadcastDispatcher.ScreenStatusChangedListener {
+        override fun onForeground() {
+            runOnUiThread {
+                ocr_view?.postDelayed({
+                    OcrScanner.getInstance().start()
+                }, 500)
+            }
+        }
+
+        override fun onBackground() {
+            OcrScanner.getInstance().stop()
+        }
     }
 }

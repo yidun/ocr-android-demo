@@ -3,6 +3,7 @@
     package="com.netease.nis.ocrdemo">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,8 +12,9 @@
         android:theme="@style/Theme.OCR">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="unspecified">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +24,11 @@
 
         <activity
             android:name=".OcrScanActivity"
+            android:exported="true"
             android:screenOrientation="behind" />
         <activity
             android:name=".ResultActivity"
+            android:exported="true"
             android:screenOrientation="behind" />
     </application>
 

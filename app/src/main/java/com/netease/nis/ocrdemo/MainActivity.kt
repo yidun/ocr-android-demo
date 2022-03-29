@@ -4,11 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.NonNull
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
@@ -22,14 +22,13 @@ import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
-    val OCR_CHECK_URL = "请用易盾官网上的URL"
-    var frontalPic: String? = null
-    var backPic: String? = null
-    var pictureCount = 0
+    private val OCR_CHECK_URL = "请用易盾官网上的检测URL"
+    private var frontalPic: String? = null
+    private var backPic: String? = null
+    private var pictureCount = 0
 
     private val PERMISSIONS = arrayOf(
-        Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.CAMERA
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,13 +133,6 @@ class MainActivity : AppCompatActivity() {
     private fun jump2OcrScanActivity(scanType: String) {
         if (!EasyPermissions.hasPermissions(this@MainActivity, Manifest.permission.CAMERA)) {
             Toast.makeText(applicationContext, "您未授予相机权限，请到设置中开启权限", Toast.LENGTH_LONG).show()
-        } else if (!EasyPermissions.hasPermissions(
-                this@MainActivity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-        ) {
-            Toast.makeText(applicationContext, "您未授予文件存储权限，请到设置中开启权限", Toast.LENGTH_LONG)
-                .show()
         } else {
             val intent = Intent(this, OcrScanActivity::class.java)
             intent.putExtra("scan_type", scanType)
@@ -155,7 +147,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions!!, grantResults!!)
 
-        // EasyPermissions handles the request result.
         EasyPermissions.onRequestPermissionsResult(
             requestCode,
             permissions,

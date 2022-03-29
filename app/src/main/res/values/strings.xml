@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">易盾OCR Demo</string>
     <string name="api">网易易盾不会留存您在使用过程中产生的任何信息， 请放心体验</string>
-    <string name="permission_tip">需要授予摄像头权限以及文件存储权限以便正常使用相关功能</string>
+    <string name="permission_tip">需要授予摄像头权限</string>
 </resources>

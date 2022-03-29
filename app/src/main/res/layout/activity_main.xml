@@ -42,6 +42,7 @@
             android:layout_width="208dp"
             android:layout_height="128dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@mipmap/pic_avatar_2x" />
     </LinearLayout>
@@ -89,6 +90,7 @@
             android:layout_width="208dp"
             android:layout_height="128dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@mipmap/pic_emblem_2x" />
     </LinearLayout>
