@@ -89,21 +89,7 @@ ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}
 ```
 -keeppackagenames com.netease.nis.ocr
 -keepattributes SourceFile,LineNumberTable
--keep class com.netease.nis.ocr.OcrScanner  {
-    public <methods>;
-    public <fields>;
-}
--keep class com.netease.nis.ocr.OcrScanView  {
-    public <methods>;
-    public <fields>;
-}
--keep class com.netease.nis.ocr.OcrEngine{
-    native <methods>;
-}
--keep class com.netease.nis.ocr.CameraView  {
-    public <methods>;
-}
--keep class com.netease.nis.ocr.OcrCropListener{*;}
+keep class com.netease.nis.**{*;}
 ```
 
 ## 使用说明
