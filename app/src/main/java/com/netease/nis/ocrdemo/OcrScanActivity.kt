@@ -43,7 +43,7 @@ class OcrScanActivity : AppCompatActivity() {
             tv_scan_type_desc.text = "  将身份证人像面放入采集框中"
         }
         OcrScanner.getInstance()
-            .init(applicationContext, ocr_view, "be66035041fe4704a1207b6134c23254")
+            .init(applicationContext, ocr_view, "易盾业务id")
         OcrScanner.getInstance().setCropListener(object : OcrCropListener {
             override fun onSuccess(picturePath: String?) {
                 val intent = Intent(context, MainActivity::class.java)
