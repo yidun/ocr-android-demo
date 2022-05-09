@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.netease.nis.ocr.OcrCropListener
 import com.netease.nis.ocr.OcrScanner
 import com.netease.nis.ocrdemo.manager.BroadcastDispatcher
 import com.netease.nis.ocrdemo.manager.showToast
 import com.netease.nis.ocrdemo.utils.TipDialog
+import com.netease.nis.ocrdemo.utils.Util
 import kotlinx.android.synthetic.main.activity_ocr_scan.*
 
 class OcrScanActivity : AppCompatActivity() {
@@ -20,8 +22,10 @@ class OcrScanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BroadcastDispatcher.registerScreenOff(this)
+        Util.setWindowBrightness(this, WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_ocr_scan)
+        BroadcastDispatcher.registerScreenOff(this)
         initView()
         initListener()
     }
@@ -39,7 +43,7 @@ class OcrScanActivity : AppCompatActivity() {
             tv_scan_type_desc.text = "  将身份证人像面放入采集框中"
         }
         OcrScanner.getInstance()
-            .init(applicationContext, ocr_view, "易盾业务id")
+            .init(applicationContext, ocr_view, "be66035041fe4704a1207b6134c23254")
         OcrScanner.getInstance().setCropListener(object : OcrCropListener {
             override fun onSuccess(picturePath: String?) {
                 val intent = Intent(context, MainActivity::class.java)
@@ -70,7 +74,6 @@ class OcrScanActivity : AppCompatActivity() {
         ocr_view?.postDelayed({
             OcrScanner.getInstance().start()
         }, 500)
-        iv_back.setOnClickListener { finish() }
     }
 
     private fun initListener() {
@@ -79,10 +82,11 @@ class OcrScanActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        Util.setWindowBrightness(this, WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE)
         OcrScanner.getInstance().stop()
         OcrScanner.getInstance().destroy()
         BroadcastDispatcher.unRegisterScreenOff(this)
+        super.onDestroy()
     }
 
     private val listener = object : BroadcastDispatcher.ScreenStatusChangedListener {

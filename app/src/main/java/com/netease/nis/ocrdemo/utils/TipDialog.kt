@@ -8,8 +8,7 @@ import com.netease.nis.ocrdemo.MainActivity
 import com.netease.nis.ocrdemo.R
 import kotlinx.android.synthetic.main.dialog_tips.*
 
-class TipDialog : Dialog {
-    constructor(context: Context) : super(context)
+class TipDialog(context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +27,6 @@ class TipDialog : Dialog {
     }
 
     private fun jump2MainActivity() {
-        val intent = Intent(context, MainActivity::class.java)
-        context.startActivity(intent)
         ownerActivity?.finish()
     }
 }

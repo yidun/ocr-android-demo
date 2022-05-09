@@ -17,7 +17,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="14dp"
             android:contentDescription="@string/app_name"
-            android:src="@mipmap/logo" />
+            android:src="@drawable/logo" />
     </LinearLayout>
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_marginLeft="36dp"
         android:layout_marginTop="28dp"
         android:layout_marginRight="36dp"
-        android:background="@mipmap/main_rect_bg"
+        android:background="@drawable/main_rect_bg"
         android:gravity="center">
 
         <ImageView
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@mipmap/pic_avatar_2x" />
+            android:src="@drawable/pic_avatar_2x" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +82,7 @@
         android:layout_marginLeft="36dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="36dp"
-        android:background="@mipmap/main_rect_bg"
+        android:background="@drawable/main_rect_bg"
         android:gravity="center">
 
         <ImageView
@@ -92,7 +92,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@mipmap/pic_emblem_2x" />
+            android:src="@drawable/pic_emblem_2x" />
     </LinearLayout>
 
     <LinearLayout

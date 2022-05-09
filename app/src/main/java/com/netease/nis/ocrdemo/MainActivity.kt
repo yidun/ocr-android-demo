@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
+import com.netease.nis.ocrdemo.manager.showToast
 import com.netease.nis.ocrdemo.utils.HttpUtil
 import com.netease.nis.ocrdemo.utils.Util
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,28 +59,32 @@ class MainActivity : AppCompatActivity() {
             HttpUtil.upload(OCR_CHECK_URL, frontalPicFile, backPicFile,
                 object : HttpUtil.ResponseCallBack {
                     override fun onSuccess(result: String?) {
-                        result?.let {
-                            val jsonResponse = JSONObject(it)
-                            if (jsonResponse.optInt("code") == 200) {
-                                val jsonResult = jsonResponse.optJSONObject("result")
-                                val detail = jsonResult?.optString("ocrResponseDetail")
-                                detail?.let {
-                                    if (detail != "null") {
-                                        val taskId = jsonResult.optString("taskId")
-                                        val intent = Intent(context, ResultActivity::class.java)
-                                        intent.putExtra("detail", detail)
-                                        intent.putExtra("taskId", taskId)
-                                        startActivity(intent)
-                                        return
+                        runOnUiThread {
+                            result?.let {
+                                val jsonResponse = JSONObject(it)
+                                if (jsonResponse.optInt("code") == 200) {
+                                    val jsonResult = jsonResponse.optJSONObject("result")
+                                    val detail = jsonResult?.optString("ocrResponseDetail")
+                                    detail?.let {
+                                        if (detail != "null") {
+                                            val taskId = jsonResult.optString("taskId")
+                                            val intent = Intent(context, ResultActivity::class.java)
+                                            intent.putExtra("detail", detail)
+                                            intent.putExtra("taskId", taskId)
+                                            startActivity(intent)
+                                            return@runOnUiThread
+                                        }
                                     }
                                 }
                             }
+                            "OCR检测失败，请稍后重试".showToast(this@MainActivity)
                         }
-                        Util.showToast(this@MainActivity, "OCR检测失败，请稍后重试")
                     }
 
                     override fun onError(errorCode: Int, msg: String?) {
-                        Util.showToast(this@MainActivity, "OCR检测图片上传失败，原因$msg")
+                        runOnUiThread {
+                            "OCR检测图片上传失败，原因$msg".showToast(this@MainActivity)
+                        }
                     }
                 })
         }
@@ -89,18 +95,24 @@ class MainActivity : AppCompatActivity() {
         if (intent.hasExtra("back_pic_path")) {
             val backPicPath = intent.getStringExtra("back_pic_path")
             backPic = backPicPath
+            backPic?.let {
+                Log.i("身份证背面地址", it)
+            }
         }
 
         if (intent.hasExtra("frontal_pic_path")) {
             val frontalPicPath = intent.getStringExtra("frontal_pic_path")
             frontalPic = frontalPicPath
+            frontalPic?.let {
+                Log.i("身份证背正面地址", it)
+            }
         }
 
         if (intent.hasExtra("from_result_activity")) {
             if (intent.getBooleanExtra("from_result_activity", false)) {
-                iv_emblem.setImageResource(R.mipmap.pic_emblem_2x)
+                iv_emblem.setImageResource(R.drawable.pic_emblem_2x)
                 tv_emblem_retry_upload.visibility = View.GONE
-                iv_avatar.setImageResource(R.mipmap.pic_avatar_2x)
+                iv_avatar.setImageResource(R.drawable.pic_avatar_2x)
                 tv_avatar_retry_upload.visibility = View.GONE
                 frontalPic = null
                 backPic = null

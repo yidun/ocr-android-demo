@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.netease.nis.ocrdemo.entity.OcrResultDetail
+import com.netease.nis.ocrdemo.manager.showToast
 import com.netease.nis.ocrdemo.utils.Util
 import kotlinx.android.synthetic.main.activity_result.*
 import org.json.JSONObject
@@ -39,13 +40,13 @@ class ResultActivity : AppCompatActivity() {
                 val token: String = tv_token.text.toString()
                 val clipData = ClipData.newPlainText("token", token)
                 mClipboardManager?.setPrimaryClip(clipData)
-                Util.showToast(this, "复制成功")
+                "复制成功".showToast(this@ResultActivity)
             }
             btn_back2home.setOnClickListener {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("from_result_activity", true)
                 setResult(Activity.RESULT_OK, intent)
-                startActivity(intent)
+                finish()
             }
         }
 

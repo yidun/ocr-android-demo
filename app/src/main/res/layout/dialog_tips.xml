@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/close" />
+        android:src="@drawable/close" />
 
     <TextView
         android:id="@+id/tv_scan_timeout"

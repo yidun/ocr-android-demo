@@ -20,7 +20,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:contentDescription="@string/app_name"
-            android:src="@mipmap/back_white" />
+            android:src="@drawable/back_white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@mipmap/circle_white"
+            android:drawableLeft="@drawable/circle_white"
             android:text="  保持光线明亮"
             android:textColor="#FFFFFF"
             android:textSize="17sp" />
@@ -75,7 +75,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:drawableLeft="@mipmap/circle_white"
+            android:drawableLeft="@drawable/circle_white"
             android:text="  将身份证人像面放入采集框中"
             android:textColor="#FFFFFF"
             android:textSize="17sp" />
@@ -84,7 +84,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:drawableLeft="@mipmap/circle_white"
+            android:drawableLeft="@drawable/circle_white"
             android:text="  文字不要有反光、遮挡"
             android:textColor="#FFFFFF"
             android:textSize="17sp" />
